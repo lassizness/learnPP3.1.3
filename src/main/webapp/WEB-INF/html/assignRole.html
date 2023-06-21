@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Assign Role</title>
+</head>
+<body>
+<h2>Assign Role</h2>
+<form th:action="@{/assign-role}" method="post">
+  <label for="userId">User ID:</label>
+  <input type="text" id="userId" name="userId">
+  <label for="roleId">Role ID:</label>
+  <input type="text" id="roleId" name="roleId">
+  <input type="submit" value="Assign">
+</form>
+
+<h2>Users:</h2>
+<!--<table>
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.username}"></td>
+  </tr>
+</table>-->
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Action</th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.username}"></td>
+    <td>
+      <table>
+        <tr th:each="role : ${roles}" th:if="${user.roles.contains(role)}">
+          <td th:text="${role.id}"></td>
+          <td th:text="${role.name}"></td>
+          <td>
+            <form th:action="@{/remove-role}" method="post">
+              <input type="hidden" name="userId" th:value="${user.id}">
+              <input type="hidden" name="roleId" th:value="${role.id}">
+              <input type="submit" value="Remove">
+            </form>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h2>All Roles</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+  </tr>
+  <tr th:each="role : ${roles}">
+    <td th:text="${role.id}"></td>
+    <td th:text="${role.name}"></td>
+  </tr>
+</table>
+<h2>Create Role</h2>
+<form action="/create-role" method="post">
+  <label for="roleName">Role Name:</label>
+  <input type="text" id="roleName" name="roleName">
+  <input type="submit" value="Create Role">
+</form>
+</body>
+</html>

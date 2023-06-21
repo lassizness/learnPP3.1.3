@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <title>Spring Security Example</title>
+</head>
+<body>
+<h1>Welcome to hell!</h1>
+
+<a th:href="@{/login}">Войти</a>
+
+<div th:if="${role == 'USER' || role == 'ADMIN'}">
+  <p>Текущая роль: User</p>
+  <a href="/user">Личный кабинет</a>
+</div>
+<div th:if="${role == 'ADMIN'}">
+  <p>Текущая роль: Admin</p>
+  <a href="/admin">Админка</a>
+</div>
+</body>
+</html>

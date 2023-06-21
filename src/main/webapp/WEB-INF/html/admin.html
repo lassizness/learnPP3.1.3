@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User List</title>
+</head>
+<body>
+<h1>User List</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Action</th>
+    <th></th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.age}"></td>
+    <td th:text="${user.getUsername()}"></td>
+    <td th:text="${user.getPassword()}"></td>
+    <td>
+      <a th:href="@{/admin/edit/{id}(id=${user.id})}">Edit</a>
+      <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+</table>
+<hr>
+<h2>Add User</h2>
+<form action="/admin/add" method="post">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="age">Age:</label>
+  <input type="number" id="age" name="age" required>
+
+  <label for="name">Username:</label>
+  <input type="text" id="username" name="username" required>
+
+  <label for="name">Password:</label>
+  <input type="text" id="password" name="password" required>
+
+  <input type="submit" value="Add User">
+</form>
+
+<a href="/assign-role">Управление ролями</a>
+<form th:action="@{/logout}" method="post">
+  <input type="submit" value="Logout">
+</form>
+</body>
+</html>
